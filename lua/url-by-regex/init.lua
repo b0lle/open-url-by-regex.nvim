@@ -14,19 +14,9 @@ end
 
 -- Function to open URL with the system's default browser
 local function open_url(url)
-	local platform = vim.loop.os_uname().sysname
 	local cmd
 
-	if platform == "Darwin" then
-		cmd = { "open", url }
-	elseif platform == "Linux" then
-		cmd = { "xdg-open", url }
-	elseif platform == "Windows_NT" then
-		cmd = { "cmd", "/c", "start", url }
-	else
-		vim.notify("Unsupported platform: " .. platform, vim.log.levels.ERROR)
-		return
-	end
+	vim.ui.open(url)
 
 	vim.fn.jobstart(cmd, {
 		on_exit = function(_, code)
